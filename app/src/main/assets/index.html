@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Pixi ejercicio</title>
+    <script src="pixi.js"></script>
+
+</head>
+
+
+<body>
+
+<script type="text/javascript">
+
+        const app = new PIXI.Application({ backgroundColor: 0x1099bb });
+        document.body.appendChild(app.view);
+
+        //crear sprites
+        let amb = PIXI.Sprite.from('assets/ambulancia.png');
+        let llanta = PIXI.Sprite.from('assets/llanta.png');
+        let llanta2 = PIXI.Sprite.from('assets/llanta.png');
+        let escenario = PIXI.Sprite.from('assets/escenario.png');
+
+
+        let flag = Boolean;
+        flag = false;
+
+        escenario.anchor.set(0.5);
+        escenario.x = (app.screen.width / 2);
+        escenario.y = (app.screen.height / 2);
+
+        //carro
+
+        amb.anchor.set(0.5);
+        amb.x = 30;
+        amb.y = (app.screen.height / 2) + 120;
+        amb.scale.x = 1.5;
+        amb.scale.y = 1.5;
+        amb.interactive = true;
+        amb.buttonMode = true;
+
+        llanta.anchor.set(0.5);
+        llanta.x = -10
+        llanta.y = (app.screen.height / 2) + 160;
+        llanta.scale.x = .05;
+        llanta.scale.y = .05;
+
+
+        llanta2.anchor.set(0.5);
+        llanta2.x = 75
+        llanta2.y = (app.screen.height / 2) + 160;
+        llanta2.scale.x = .05;
+        llanta2.scale.y = .05;
+
+        let container = new PIXI.Container();
+        app.stage.addChild(escenario);
+
+        container.addChild(amb);
+        container.addChild(llanta);
+        container.addChild(llanta2);
+        app.stage.addChild(container);
+        let count2 = 0;
+
+        app.ticker.add(function (delta) {
+            //mano rotacion
+            if (flag) {
+                count2 += 5;
+                llanta.rotation += 1.3 * delta;
+                llanta2.rotation += 1.3 * delta;
+                container.x += 5;
+                if (count2 > app.screen.width+150) {
+                    container.x = -140
+                    count2 = 0;
+                }
+            }
+        }
+        );
+
+
+        //evento traslacion
+        amb.on('pointerdown', onClick);
+        function onClick() {
+
+            if (flag == true) {
+
+                flag = false;
+            }
+            else {
+                flag = true;
+            }
+
+        }
+
+
+    </script>
+</body>
+
+</html>
