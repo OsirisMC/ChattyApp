@@ -73,28 +73,22 @@ public class MainActivity extends AppCompatActivity {
         ttsManager= new TTSManager();
         ttsManager.init(this);
 
-        // on below line we are creating our firebase translate option.
+       
         FirebaseTranslatorOptions traductorParaEntrada =
                 new FirebaseTranslatorOptions.Builder()
-                        // below line we are specifying our source language.
+                       
                         .setSourceLanguage(FirebaseTranslateLanguage.ES)
-                        // in below line we are displaying our target language.
+                        
                         .setTargetLanguage(FirebaseTranslateLanguage.EN)
-                        // after that we are building our options.
+                        
                         .build();
-        // below line is to get instance
-        // for firebase natural language.
+
         spanishToEnglishTranslator = FirebaseNaturalLanguage.getInstance().getTranslator(traductorParaEntrada);
         FirebaseTranslatorOptions traductorParaSalida =
                 new FirebaseTranslatorOptions.Builder()
-                        // below line we are specifying our source language.
                         .setSourceLanguage(FirebaseTranslateLanguage.EN)
-                        // in below line we are displaying our target language.
                         .setTargetLanguage(FirebaseTranslateLanguage.ES)
-                        // after that we are building our options.
                         .build();
-        // below line is to get instance
-        // for firebase natural language.
         englishToSpanishTranslator= FirebaseNaturalLanguage.getInstance().getTranslator(traductorParaSalida);
 
         sendMsgFAB.setOnClickListener(new View.OnClickListener() {
@@ -104,8 +98,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Please Enter your Message", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                // calling method to download language
-                // modal to which we have to translate.
                 String string = userMsgEdit.getText().toString();
                 downloadModal(string);
 
@@ -192,15 +184,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void downloadModal(String input) {
-        // below line is use to download the modal which
-        // we will require to translate in german language
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
 
-        // below line is use to download our modal.
         spanishToEnglishTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                // calling method to translate our entered text.
                 translateSpanishToEnglish(input);
 
             }
@@ -212,15 +200,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void downloadModalEnglishToSpanish (String input) {
-        // below line is use to download the modal which
-        // we will require to translate in german language
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
 
-        // below line is use to download our modal.
         englishToSpanishTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                // calling method to translate our entered text.
                 translateEnglishToSpanish(input);
 
             }
