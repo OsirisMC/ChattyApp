@@ -1,5 +1,4 @@
 package com.example.chattyapp;
-//---Aqui estaría el nombre de tu proyecto
 
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
